@@ -253,102 +253,104 @@ Complete instructions in the cardGame.js file
 */
 class Card {
   constructor(suit, rank, value) {
-      this.suit = suit;
-      this.rank = rank;
-      this.value = value;
+    this.suit = suit;
+    this.rank = rank;
+    this.value = value;
   }
 }
 class Deck {
   constructor() {
-      this.cards = [];    
+    this.cards = [];
   }
-                     
+
   createDeck() {
-    let suits = ['clubs', 'diamonds', 'hearts', 'spades'];
-    let ranks = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king'];
+    let suits = ["clubs", "diamonds", "hearts", "spades"];
+    let ranks = [
+      "ace",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "jack",
+      "queen",
+      "king"
+    ];
     let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-    
+
     for (let i = 0; i < suits.length; i++) {
-        for (let j = 0; j < ranks.length; j++) {
-            this.cards.push(new Card(suits[i], ranks[j], values[j]));
-        }
+      for (let j = 0; j < ranks.length; j++) {
+        this.cards.push(new Card(suits[i], ranks[j], values[j]));
+      }
     }
   }
   shuffleDeck() {
     let location1, location2, tmp;
     for (let i = 0; i < 1000; i++) {
-        location1 = Math.floor((Math.random() * this.cards.length));
-        location2 = Math.floor((Math.random() * this.cards.length));
-        tmp = this.cards[location1];
-        this.cards[location1] = this.cards[location2];
-        this.cards[location2] = tmp;
-     }
- }
-
+      location1 = Math.floor(Math.random() * this.cards.length);
+      location2 = Math.floor(Math.random() * this.cards.length);
+      tmp = this.cards[location1];
+      this.cards[location1] = this.cards[location2];
+      this.cards[location2] = tmp;
+    }
+  }
 }
 
 class Player {
   constructor(name) {
-      this.playerName = name;
-      this.playerCards = [];
+    this.playerName = name;
+    this.playerCards = [];
+    this.value = [];
   }
 }
 class Board {
   constructor() {
-      this.cardsInMiddle = [];
-      this.players = [];
+    this.cardsInMiddle = [];
+    this.players = [];
   }
   start(playerOneName, playerTwoName) {
-      this.players.push(new Player(playerOneName));
-      this.players.push(new Player(playerTwoName));
-      let d = new Deck();
-      d.createDeck();
-      d.shuffleDeck();    
-      this.players[0].playerCards = d.cards.slice(0, 26);
-      this.players[1].playerCards = d.cards.slice(26, 52);
+    this.players.push(new Player(playerOneName));
+    this.players.push(new Player(playerTwoName));
+    let d = new Deck();
+    d.createDeck();
+    d.shuffleDeck();
+    let result1 = (this.players[0].playerCards = d.cards.slice(0, 26));
+    //console.log(result1)
+
+    let result2 = (this.players[1].playerCards = d.cards.slice(26, 52));
+    result1 =
+      result1[
+        Object.keys(result1)[
+          Math.floor(Math.random() * Object.keys(result1).length)
+        ]
+      ];
+    result2 =
+      result2[
+        Object.keys(result2)[
+          Math.floor(Math.random() * Object.keys(result2).length)
+        ]
+      ];
+    // console.log(result1)
+    // console.log(result2)
+
+    result1 = result1.value;
+    result2 = result2.value;
+    console.log(result1);
+    console.log(result2);
+
+    console.log("Card of " + playerOneName + " is " + result1);
+    console.log("Card of " + playerTwoName + " is " + result2);
+    if (result1 > result2) {
+      console.log(playerOneName + " is the Winner");
+    } else if (result1 < result2) {
+      console.log(playerTwoName + " is the Winner");
+    } else console.log("It's a Draw!!");
   }
 }
 let gameBoard = new Board();
-gameBoard.start('Mario', 'Luigi');
+gameBoard.start("Mario", "Luigi");
 console.log(gameBoard.players);
-
-const d = new Deck();
-// notice since our Deck class' constructor has no arguments, we do  // not need to pass anything into Deck()
-d.createDeck();       // calling our function to fill our array
-console.log(d.cards);
-
-class Deck {
-  constructor() {
-    this.deck = [];
-    const suits = ["Hearts", "Spades", "Clubs", "Diamonds"];
-    const values = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"];
-    for (let suit in suits) {
-      for (let value in values) {
-        this.deck.push(`${values[value]} of ${suits[suit]}`);
-      }
-    }
-  }
-
-  shuffle() {
-    const deck = this.deck;
-    let m = deck.length;
-    let i;
-
-    while (m) {
-      i = Math.floor(Math.random() * m--);
-
-      [deck[m], deck[i]] = [deck[i], deck[m]];
-    }
-
-    return this;
-  }
-  deal() {
-    return this.deck.pop();
-  }
-}
-
-const deck1 = new Deck();
-deck1.shuffle();
-console.log(deck1.deck);
-deck1.deal();
-console.log(deck1.deck);
