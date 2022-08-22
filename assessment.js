@@ -208,7 +208,7 @@ https://gist.github.com/harrisonmalone/e06ea120532e5cd323ef0b0b37a4d6
 
 LINK TO YOUR REPO HERE
 
-It's not working due to some database connectivity issue but here it is 
+Nevermind it's working now
 https://github.com/ahirsarthak/TKH-Assessment/tree/main/TKH-SQL
 
 */
