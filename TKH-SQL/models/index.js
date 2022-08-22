@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -37,6 +39,12 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
+
+async function main() {
+  await sequelize.sync();
+}
+
+main();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
